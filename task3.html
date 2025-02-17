@@ -1,0 +1,61 @@
+<!-- 1) Password Strength Checker:
+Create an input field where a user types a password, and the script checks if the password is "Strong", "Medium", or "Weak"  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        .strength-indicator {
+            font-weight: bold;
+            padding: 10px;
+        }
+        .weak {
+            color: red;
+        }
+        .medium {
+            color: orange;
+        }
+        .strong {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2>Password Strength Checker</h2>
+    <label for="password">Enter Password:</label>
+    <input type="password" id="password" placeholder="Type your password" oninput="checkPasswordStrength()">
+    <p id="strength" class="strength-indicator">Password strength: </p>
+
+    <script>
+        function checkPasswordStrength() {
+            const password = document.getElementById("password").value;
+            const strengthElement = document.getElementById("strength");
+
+            let strength = "Weak"; 
+
+            const lengthCondition = password.length >= 8;
+            const numberCondition = /[0-9]/.test(password);
+            const lowercaseCondition = /[a-z]/.test(password);
+            const uppercaseCondition = /[A-Z]/.test(password);
+            const specialCharacterCondition = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+            if (lengthCondition && numberCondition && lowercaseCondition && uppercaseCondition && specialCharacterCondition) {
+                strength = "Strong";
+            } else if (lengthCondition && (numberCondition || lowercaseCondition || uppercaseCondition)) {
+                strength = "Medium";
+            }
+
+            strengthElement.textContent = `Password strength: ${strength}`;
+            strengthElement.classList.remove("weak", "medium", "strong");
+            strengthElement.classList.add(strength.toLowerCase());
+
+        }
+    </script>
+</body>
+</html>

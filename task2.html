@@ -1,0 +1,53 @@
+<!-- password matcher -->
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Matcher</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        .match-indicator {
+            font-weight: bold;
+            padding: 10px;
+        }
+        .match {
+            color: green;
+        }
+        .no-match {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Password Matcher</h2>
+    <label for="password">Enter Password:</label>
+    <input type="password" id="password" placeholder="Enter your password">
+    <br><br>
+
+    <label for="confirm-password">Confirm Password:</label>
+    <input type="password" id="confirm-password" placeholder="Confirm your password" oninput="checkPasswordsMatch()">
+    <p id="match-status" class="match-indicator">Passwords match: </p>
+
+    <script>
+        function checkPasswordsMatch() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            const matchStatusElement = document.getElementById("match-status");
+
+            if (password === confirmPassword && password.length > 0) {
+                matchStatusElement.textContent = "Passwords match!";
+                matchStatusElement.classList.remove("no-match");
+                matchStatusElement.classList.add("match");
+            } else {
+                matchStatusElement.textContent = "Passwords do not match!";
+                matchStatusElement.classList.remove("match");
+                matchStatusElement.classList.add("no-match");
+            }
+        }
+    </script>
+</body>
+</html>
